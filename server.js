@@ -1,34 +1,27 @@
-// Require/import the HTTP module
-var http = require("http");
+var http = require('http')
 
-// Define a port to listen for incoming requests
-var PORT1 = 7000;
-var PORT2 = 7500;
+// Nice port
+var PORT1 = 7000
+// Mean port
+var PORT2 = 7500
 
-// Create a generic function to handle requests and responses
-function handleRequest(request, response) {
 
-  // Send the below string to the client when the user visits the PORT URL
-  response.end("It Works!! Path Hit: " + request.url);
+function niceHandler(request, response) {
+  response.end('You are so wonderful!')
 }
 
-// Use the Node HTTP package to create our server.
-// Pass the handleRequest function to empower it with functionality.
-var server1 = http.createServer(handleRequest);
+function meanHandler(request, response) {
+  response.end('You are so wonderfully awful!')
+}
 
-// Start our server so that it can begin listening to client requests.
-server1.listen(PORT1, function() {
+var niceServer = http.createServer(niceHandler)
 
-  // Log (server-side) when our server has started
-  console.log("Server listening on: http://localhost:" + PORT1);
-  console.log("You're awesome!")
-});
+var meanServer = http.createServer(meanHandler)
 
-var server2 = http.createServer(handleRequest);
+niceServer.listen(PORT1, function() {
+  console.log('Nice server is listening on: ', PORT1)
+})
 
-server2.listen(PORT2, function() {
-
-  // Log (server-side) when our server has started
-  console.log("Server listening on: http://localhost:" + PORT2);
-  console.log("You suck!")
-});
+meanServer.listen(PORT2, function() {
+  console.log('Mean server is listening on: ', PORT2)
+})
